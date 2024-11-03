@@ -19,19 +19,25 @@ cap = cv2.VideoCapture(input_video_path)
 # 動画のフレームレートとフレーム総数を取得
 fps = cap.get(cv2.CAP_PROP_FPS)
 total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+print(f'ori_tatal_frame:{total_frames}')
+cac_total_frames = int(cac_cap.get(cv2.CAP_PROP_FRAME_COUNT))
+print(f'cac_tatal_frame:{cac_total_frames}')
 
 #トラッキングビデオと入力動画のfpsを補正
-fps_correct = int(round(fps/cac_fps))
+fps_correct = fps/cac_fps
 print(fps_correct)
 
 # 切り取る基準のフレーム番号のリスト
-frame_list = [44790]  # 例: 基準となるフレーム番号のリスト
-#frame_list = [2130, 2580, 8430, 10740, 19470, 22530, 23610, 30150, 33120, 36360, 36870, 39720, 42270, 45570]
-correct_frame = [x * fps_correct for x in frame_list]
+#frame_list = [44790]  # 例: 基準となるフレーム番号のリスト
+frame_list = [2130, 2580, 8430, 10740, 19470, 22530, 23610, 30150, 33120, 36360, 36870, 39720, 42270, 45570]
+#correct_frame = [x * fps_correct for x in frame_list]
+correct_frame_float = [x * fps_correct for x in frame_list]
+correct_frame = [int(value) for value in correct_frame_float]
+
 print(correct_frame)
 # 60フレーム前から120フレーム後までの範囲を指定
-offset_before = 60*fps_correct
-offset_after = 120*fps_correct
+offset_before = 60*int(round(fps_correct))
+offset_after = 120*int(round(fps_correct))
 
 # フレームリスト内の各フレーム番号に対して処理を行う
 #for idx, frame_number in enumerate(frame_list):
@@ -61,6 +67,7 @@ for idx, frame_number in enumerate(correct_frame):
 
     out.release()  # 出力動画を保存
     print(f'Video segment saved: {output_video_path}')
+    
 
 cap.release()
 print('All segments have been processed and saved.')
