@@ -32,12 +32,10 @@ def show_frame(video_path, frame_number):
     # フレームを表示
     
     # 指定されたフレームの x, y 座標をリスト形式で取得
-    """
+    
     x_coords = df[df['frameIndex'] == frame_number]['x'].to_list()
     y_coords = df[df['frameIndex'] == frame_number]['y'].to_list()
-"""
-    x_coords = df[df['frameIndex'] == 8440]['x'].to_list()
-    y_coords = df[df['frameIndex'] == 8440]['y'].to_list()
+
 
     # x, y 座標をペアにしてリスト形式で取得
     coords = list(zip([int(x) for x in x_coords], [int(y) for y in y_coords]))
@@ -57,11 +55,13 @@ def show_frame(video_path, frame_number):
 
 # 使用例
 video_path = 'CAC_tracking.mp4'
-frame_number = 8430# 表示したいフレーム番号を指定
+frame_number = 45570# 表示したいフレーム番号を指定
 show_frame(video_path, frame_number)
 
 video_path_ori = 'quvnu_ori.mp4'
-frame_number_ori = 8430*2
+#frame_number_ori = frame_number*2
+frame_number_ori = 91048
+
 show_frame(video_path_ori, frame_number_ori)
 
 
